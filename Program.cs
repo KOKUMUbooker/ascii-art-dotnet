@@ -11,8 +11,8 @@ class Program
         try 
         {
             // Get input from user
-            // var input = Console.ReadLine();
-            // Console.WriteLine("Input : "+input);
+            Console.Write("Enter your string : ");
+            var input = Console.ReadLine();
             
             // Reading files
             IEnumerable<string> lines = File.ReadLines(@$"./BannerFiles/{banner}.txt");
@@ -35,7 +35,7 @@ class Program
                 i++;
             }
 
-            PrintBannerMap(bannerDict);
+            // PrintBannerMap(bannerDict);
         }
         catch (Exception e)
         {
