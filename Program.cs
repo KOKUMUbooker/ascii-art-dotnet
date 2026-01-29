@@ -35,7 +35,10 @@ class Program
                 i++;
             }
 
+            // Split
+
             // PrintBannerMap(bannerDict);
+            PrintLineAscii(input,bannerDict);
         }
         catch (Exception e)
         {
@@ -55,6 +58,20 @@ class Program
             {
                 Console.WriteLine(layer);
             }
+        }
+    }
+
+    public static void PrintLineAscii(string input, Dictionary<char, List<string>> bannerDict) 
+    {
+        var charArr = input.ToCharArray();
+        foreach (var charVal in charArr) 
+        {
+            List<string> group = bannerDict[charVal];
+            foreach (string layer in group) 
+            {
+                Console.Write(layer);
+            }
+            Console.WriteLine();
         }
     }
 }
