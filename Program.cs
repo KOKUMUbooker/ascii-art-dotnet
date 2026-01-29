@@ -10,7 +10,9 @@ class Program
         string banner = "standard";
         try 
         {
-            Console.WriteLine("Args : ",args);
+            // Get input from user
+            // var input = Console.ReadLine();
+            // Console.WriteLine("Input : "+input);
             
             // Reading files
             IEnumerable<string> lines = File.ReadLines(@$"./BannerFiles/{banner}.txt");
@@ -25,18 +27,34 @@ class Program
                 if (line.Length == 0) continue;
 
                 bannerDict[curRune].Add(line);
-                if (i != 0 && i % 8 == 0) 
+                if (i != 0 && (i+1) % 8 == 0) 
                 {
                     curRune++;
                     if (curRune <= 126) bannerDict.Add(curRune, new List<string>());
                 }
-                Console.WriteLine(line);
+                i++;
             }
+
+            PrintBannerMap(bannerDict);
         }
         catch (Exception e)
         {
             Console.WriteLine($"Failed to read file {banner}.txt : ");
             Console.WriteLine(e.Message);
+        }
+    }
+
+
+    public static void PrintBannerMap(Dictionary<char, List<string>> bannerDict) 
+    {
+        Console.WriteLine($"Dictionary count: {bannerDict.Count}");
+        foreach (KeyValuePair<char, List<string>> dictPair in bannerDict) 
+        {
+            Console.WriteLine("key {0}",dictPair.Key);
+            foreach (var layer in dictPair.Value)
+            {
+                Console.WriteLine(layer);
+            }
         }
     }
 }
