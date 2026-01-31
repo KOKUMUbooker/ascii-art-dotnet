@@ -13,6 +13,10 @@ class Program
             // Get input from user
             Console.Write("Enter your string : ");
             var input = Console.ReadLine();
+            if (input == null) 
+            {
+                return;
+            }
             
             // Reading files
             IEnumerable<string> lines = File.ReadLines(@$"./BannerFiles/{banner}.txt");
@@ -35,16 +39,60 @@ class Program
                 i++;
             }
 
-            // Split
-
-            // PrintBannerMap(bannerDict);
-            PrintLineAscii(input,bannerDict);
+            // Split strings into separate items based on newline
+            var splitStr = SplitStringByNewLine(input);
+            foreach (var str in splitStr)
+            {
+                if (str == "\n")
+                {
+                    Console.WriteLine();
+                }
+                else 
+                {
+                    PrintLineAscii(input,bannerDict);
+                }
+            }
         }
         catch (Exception e)
         {
             Console.WriteLine($"Failed to read file {banner}.txt : ");
             Console.WriteLine(e.Message);
         }
+    }
+
+    public static List<string> SplitStringByNewLine(string input) 
+    {
+        var charArr = input.ToCharArray();
+        var res = new List<string>();
+
+        int cLen = charArr.Length;
+        int i = 0;
+        int end = 0;
+        while ( i < cLen )
+        {
+            if (charArr[i] == '\n') 
+            {
+                res.Add(charArr[i].ToString());
+                i++;
+                end++;
+                continue;
+            }
+
+            // Console.WriteLine($"Hello i : {i}, end : {end}, cLen : {cLen}");
+            while (charArr[end] != '\n') 
+            {
+                end++;
+                if (end == cLen) 
+                {
+                    break;
+                }
+            }
+            var group = charArr[i..end];
+            res.Add(group.ToString());
+            i = end;
+        }
+
+        return res;
     }
 
 
@@ -63,14 +111,14 @@ class Program
 
     public static void PrintLineAscii(string input, Dictionary<char, List<string>> bannerDict) 
     {
-        var charArr = input.ToCharArray();
-        foreach (var charVal in charArr) 
+        for (int i = 0; i < 8; i++) 
         {
-            List<string> group = bannerDict[charVal];
-            foreach (string layer in group) 
+            foreach (char charVal in input) 
             {
-                Console.Write(layer);
-            }
+                List<string> group = bannerDict.GetValueOrDefault(charVal);
+                if (group != null) Console.Write(group[i]);
+            } 
+
             Console.WriteLine();
         }
     }
