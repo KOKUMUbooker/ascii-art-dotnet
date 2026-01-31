@@ -2,8 +2,6 @@
 
 A C# console application that converts a given string into a large ASCII-art representation using predefined banner templates.
 
-This project is a .NET reimplementation of the classic **ascii-art** exercise, originally written in Go, and supports multiple banner styles and multiline input.
-
 ---
 
 ## Features
