@@ -17,6 +17,29 @@ class Program
             {
                 return;
             }
+            Console.WriteLine("1 - Standard");
+            Console.WriteLine("2 - Shadow");
+            Console.WriteLine("3 - thinkertoy");
+            Console.WriteLine("Press Enter to skip");
+            Console.Write("Pick an banner style option (1 - 3) : ");
+            
+            var style = Console.ReadLine();
+            int option;
+            if (int.TryParse(style, out option))
+            {
+                switch (option)
+                {
+                    case 1 : 
+                        banner = "standard";
+                        break;
+                    case 2 :
+                        banner = "shadow";
+                        break;
+                    case 3 :
+                        banner = "thinkertoy";
+                        break;
+                }
+            }
             
             // Reading files
             IEnumerable<string> lines = File.ReadLines(@$"./BannerFiles/{banner}.txt");
